@@ -1,0 +1,13 @@
+@model HairSalonDemo.Models.WalkInQueueItem
+@{
+    ViewData["Title"] = "Delete Walk-in";
+}
+<div class="panel p-4">
+    <h1 class="mb-3">Delete Walk-in</h1>
+    <p class="section-subtitle">Are you sure you want to remove this customer from the queue?</p>
+    <dl class="row mb-4">
+        <dt class="col-sm-3">Customer</dt><dd class="col-sm-9">@Model.CustomerName</dd>
+        <dt class="col-sm-3">Status</dt><dd class="col-sm-9">@Model.Status</dd>
+    </dl>
+    <form asp-action="Delete" class="d-flex gap-2"><input type="hidden" asp-for="WalkInQueueItemId" /><button class="btn btn-danger" type="submit">Delete</button><a asp-action="Index" class="btn btn-secondary">Cancel</a></form>
+</div>

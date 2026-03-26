@@ -1,0 +1,21 @@
+@model HairSalonDemo.Models.Appointment
+@{
+    ViewData["Title"] = "Create Appointment";
+}
+<div class="panel p-4">
+    <h1 class="mb-1">Create Appointment</h1>
+    <p class="section-subtitle mb-4">Book a customer with a staff member and service.</p>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="CustomerId" class="form-label"></label><select asp-for="CustomerId" class="form-select" asp-items="ViewBag.CustomerId"></select></div>
+            <div class="col-md-6"><label asp-for="StaffId" class="form-label"></label><select asp-for="StaffId" class="form-select" asp-items="ViewBag.StaffId"></select></div>
+            <div class="col-md-6"><label asp-for="ServiceId" class="form-label"></label><select asp-for="ServiceId" class="form-select" asp-items="ViewBag.ServiceId"></select></div>
+            <div class="col-md-3"><label asp-for="AppointmentDate" class="form-label"></label><input asp-for="AppointmentDate" class="form-control" /></div>
+            <div class="col-md-3"><label asp-for="AppointmentTime" class="form-label"></label><input asp-for="AppointmentTime" class="form-control" /></div>
+            <div class="col-md-6"><label asp-for="Status" class="form-label"></label><select asp-for="Status" class="form-select"><option>Booked</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select></div>
+        </div>
+        <div class="mt-4 d-flex gap-2"><button class="btn btn-primary" type="submit">Save Appointment</button><a asp-action="Index" class="btn btn-secondary">Back</a></div>
+    </form>
+</div>
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

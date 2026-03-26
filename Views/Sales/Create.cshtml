@@ -1,0 +1,165 @@
+@model HairSalonDemo.ViewModels.CreateSaleViewModel
+@{
+    ViewData["Title"] = "New Sale";
+}
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="panel p-4">
+            <div class="mb-4">
+                <h1 class="mb-1">Create Sale</h1>
+                <p class="section-subtitle mb-0">Select service, add an optional retail product, and complete checkout.</p>
+            </div>
+
+            <form asp-action="Create" id="saleForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="CustomerId" class="form-label"></label>
+                        <select asp-for="CustomerId" asp-items="Model.Customers" class="form-select">
+                            <option value="">Walk-in customer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="StaffId" class="form-label"></label>
+                        <select asp-for="StaffId" asp-items="Model.StaffMembers" class="form-select">
+                            <option value="">Select staff</option>
+                        </select>
+                        <span asp-validation-for="StaffId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="ServiceId" class="form-label"></label>
+                        <select asp-for="ServiceId" asp-items="Model.Services" class="form-select" id="serviceSelect">
+                            <option value="">Select service</option>
+                        </select>
+                        <span asp-validation-for="ServiceId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ProductId" class="form-label"></label>
+                        <select asp-for="ProductId" asp-items="Model.Products" class="form-select" id="productSelect">
+                            <option value="">No product</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="ProductQuantity" class="form-label"></label>
+                        <input asp-for="ProductQuantity" class="form-control" id="productQty" min="1" />
+                        <span asp-validation-for="ProductQuantity" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PaymentMethod" class="form-label"></label>
+                        <select asp-for="PaymentMethod" class="form-select">
+                            <option value="">Select payment method</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Card">Card</option>
+                            <option value="EFT">EFT</option>
+                        </select>
+                        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Subtotal" class="form-label"></label>
+                        <input asp-for="Subtotal" class="form-control" id="subtotal" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DiscountAmount" class="form-label"></label>
+                        <input asp-for="DiscountAmount" class="form-control" id="discount" />
+                        <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="TotalAmount" class="form-label"></label>
+                        <input asp-for="TotalAmount" class="form-control" id="total" readonly />
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Complete Sale</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="panel p-4 h-100">
+            <h4 class="mb-3">Checkout Summary</h4>
+            <div class="summary-label mb-2">Selected service</div>
+            <div id="summaryService" class="mb-3">None selected</div>
+            <div class="summary-label mb-2">Selected product</div>
+            <div id="summaryProduct" class="mb-3">No product selected</div>
+            <div class="summary-label mb-2">Quantity</div>
+            <div id="summaryQty" class="mb-3">1</div>
+            <hr />
+            <div class="d-flex justify-content-between mb-2">
+                <span class="summary-label">Subtotal</span>
+                <strong id="summarySubtotal">0.00</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+                <span class="summary-label">Discount</span>
+                <strong id="summaryDiscount">0.00</strong>
+            </div>
+            <div class="d-flex justify-content-between fs-5">
+                <span>Total</span>
+                <strong class="text-warning" id="summaryTotal">0.00</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        const servicePrices = {
+            @for (int i = 0; i < Model.Services!.Count; i++)
+            {
+                var item = Model.Services[i];
+                var priceText = item.Text.Split(" - ").Last().Replace("R", "").Replace(",", "");
+                <text>"@item.Value": parseFloat("@priceText")@(i < Model.Services.Count - 1 ? "," : "")</text>
+            }
+        };
+        const productPrices = {
+            @for (int i = 0; i < Model.Products!.Count; i++)
+            {
+                var item = Model.Products[i];
+                var parts = item.Text.Split(" - ");
+                var priceText = parts.Length > 1 ? parts[1].Split(" ").First().Replace("R", "").Replace(",", "") : "0";
+                <text>"@item.Value": parseFloat("@priceText")@(i < Model.Products.Count - 1 ? "," : "")</text>
+            }
+        };
+
+        function getSelectedText(selectId) {
+            const select = document.getElementById(selectId);
+            return select.options[select.selectedIndex]?.text || "";
+        }
+
+        function calculateSale() {
+            const serviceId = document.getElementById('serviceSelect').value;
+            const productId = document.getElementById('productSelect').value;
+            const qty = parseInt(document.getElementById('productQty').value || '1');
+            const discount = parseFloat(document.getElementById('discount').value || '0');
+
+            const servicePrice = servicePrices[serviceId] || 0;
+            const productPrice = productPrices[productId] || 0;
+            const subtotal = servicePrice + (productPrice * qty);
+            const total = Math.max(subtotal - discount, 0);
+
+            document.getElementById('subtotal').value = subtotal.toFixed(2);
+            document.getElementById('total').value = total.toFixed(2);
+
+            document.getElementById('summaryService').innerText = serviceId ? getSelectedText('serviceSelect') : 'None selected';
+            document.getElementById('summaryProduct').innerText = productId ? getSelectedText('productSelect') : 'No product selected';
+            document.getElementById('summaryQty').innerText = qty;
+            document.getElementById('summarySubtotal').innerText = subtotal.toFixed(2);
+            document.getElementById('summaryDiscount').innerText = discount.toFixed(2);
+            document.getElementById('summaryTotal').innerText = total.toFixed(2);
+        }
+
+        document.getElementById('serviceSelect').addEventListener('change', calculateSale);
+        document.getElementById('productSelect').addEventListener('change', calculateSale);
+        document.getElementById('productQty').addEventListener('input', calculateSale);
+        document.getElementById('discount').addEventListener('input', calculateSale);
+        calculateSale();
+    </script>
+}

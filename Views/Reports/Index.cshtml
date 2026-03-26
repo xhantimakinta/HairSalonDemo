@@ -1,0 +1,50 @@
+@model HairSalonDemo.ViewModels.ReportsViewModel
+@{
+    ViewData["Title"] = "Reports";
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="mb-1">Reports</h1>
+        <p class="section-subtitle mb-0">Sales, service, stock, and staff performance insights.</p>
+    </div>
+</div>
+<div class="row g-4 mb-4">
+    <div class="col-md-4"><div class="report-card p-4 h-100"><div class="summary-label">Daily Sales</div><div class="summary-number">@Model.DailySales.ToString("C")</div></div></div>
+    <div class="col-md-4"><div class="report-card p-4 h-100"><div class="summary-label">Weekly Sales</div><div class="summary-number">@Model.WeeklySales.ToString("C")</div></div></div>
+    <div class="col-md-4"><div class="report-card p-4 h-100"><div class="summary-label">Monthly Sales</div><div class="summary-number">@Model.MonthlySales.ToString("C")</div></div></div>
+</div>
+<div class="row g-4 mb-4">
+    <div class="col-lg-6">
+        <div class="panel p-4 h-100">
+            <h4 class="mb-3">Top Staff Member</h4>
+            <div class="summary-number">@Model.TopStaffMember</div>
+            <div class="summary-label">Sales: @Model.TopStaffSales.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel p-4 h-100">
+            <h4 class="mb-3">Most Popular Service</h4>
+            <div class="summary-number">@Model.MostPopularService</div>
+            <div class="summary-label">Times sold: @Model.MostPopularServiceCount</div>
+        </div>
+    </div>
+</div>
+<div class="panel p-4">
+    <h4 class="mb-3">Staff Commission</h4>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead><tr><th>Staff Member</th><th>Rate</th><th>Service Sales</th><th>Commission</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model.StaffCommissions)
+            {
+                <tr>
+                    <td>@item.StaffName</td>
+                    <td>@(item.CommissionRate + "%")</td>
+                    <td>@item.ServiceSalesTotal.ToString("C")</td>
+                    <td>@item.CommissionAmount.ToString("C")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

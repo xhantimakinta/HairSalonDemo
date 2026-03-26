@@ -1,0 +1,122 @@
+@model HairSalonDemo.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="hero-banner p-4 p-lg-5 mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="badge-soft mb-3">Barber + Beauty POS</span>
+            <h1 class="display-5 mb-3">Manage your salon with speed, style, and clarity.</h1>
+            <p class="section-subtitle mb-0">Track sales, clients, services, stock, bookings, and walk-ins from one modern dashboard.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <a asp-controller="Sales" asp-action="Create" class="btn btn-primary me-2 mb-2">New Sale</a>
+            <a asp-controller="Appointments" asp-action="Create" class="btn btn-secondary mb-2">Book Appointment</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="dashboard-card p-4 h-100">
+            <div class="summary-label">Today's Sales</div>
+            <div class="summary-number">@Model.TodaySales.ToString("C")</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="dashboard-card p-4 h-100">
+            <div class="summary-label">Total Customers</div>
+            <div class="summary-number">@Model.TotalCustomers</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="dashboard-card p-4 h-100">
+            <div class="summary-label">Total Services</div>
+            <div class="summary-number">@Model.TotalServices</div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="dashboard-card p-4 h-100">
+            <div class="summary-label">Low Stock Items</div>
+            <div class="summary-number">@Model.LowStockCount</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="panel p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Recent Sales</h3>
+                <a asp-controller="Sales" asp-action="Index">View all</a>
+            </div>
+            @if (Model.RecentSales.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Staff</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var sale in Model.RecentSales)
+                        {
+                            <tr>
+                                <td>@sale.SaleDate.ToString("dd MMM yyyy HH:mm")</td>
+                                <td>@(sale.Customer?.FullName ?? "Walk-in")</td>
+                                <td>@(sale.Staff?.FullName ?? "N/A")</td>
+                                <td>@sale.TotalAmount.ToString("C")</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="section-subtitle mb-0">No sales yet.</p>
+            }
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="panel p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Low Stock</h3>
+                <a asp-controller="Products" asp-action="Index">Manage products</a>
+            </div>
+            @if (Model.LowStockProducts.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Stock</th>
+                                <th>Reorder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var product in Model.LowStockProducts)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                <td class="low-stock">@product.StockQuantity</td>
+                                <td>@product.ReorderLevel</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="section-subtitle mb-0">Stock levels look good.</p>
+            }
+        </div>
+    </div>
+</div>

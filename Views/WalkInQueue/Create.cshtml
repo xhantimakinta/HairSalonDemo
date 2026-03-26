@@ -1,0 +1,19 @@
+@model HairSalonDemo.Models.WalkInQueueItem
+@{
+    ViewData["Title"] = "Add Walk-in";
+}
+<div class="panel p-4">
+    <h1 class="mb-1">Add Walk-in Customer</h1>
+    <p class="section-subtitle mb-4">Capture a client waiting for service.</p>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="row g-3">
+            <div class="col-md-6"><label asp-for="CustomerName" class="form-label"></label><input asp-for="CustomerName" class="form-control" /></div>
+            <div class="col-md-6"><label asp-for="StaffId" class="form-label"></label><select asp-for="StaffId" class="form-select" asp-items="ViewBag.StaffId"><option value="">Not assigned</option></select></div>
+            <div class="col-md-6"><label asp-for="Status" class="form-label"></label><select asp-for="Status" class="form-select"><option>Waiting</option><option>In Service</option><option>Completed</option></select></div>
+            <div class="col-md-6"><label asp-for="CreatedAt" class="form-label"></label><input asp-for="CreatedAt" class="form-control" /></div>
+        </div>
+        <div class="mt-4 d-flex gap-2"><button class="btn btn-primary" type="submit">Save</button><a asp-action="Index" class="btn btn-secondary">Back</a></div>
+    </form>
+</div>
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

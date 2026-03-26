@@ -1,0 +1,26 @@
+@model HairSalonDemo.Models.Sale
+@{
+    ViewData["Title"] = "Delete Sale";
+}
+
+<div class="panel p-4">
+    <h1 class="mb-1">Delete Sale</h1>
+    <p class="section-subtitle mb-4">This will remove the sale record.</p>
+
+    <dl class="row">
+        <dt class="col-sm-3">Customer</dt>
+        <dd class="col-sm-9">@(Model.Customer?.FullName ?? "Walk-in")</dd>
+        <dt class="col-sm-3">Staff</dt>
+        <dd class="col-sm-9">@(Model.Staff?.FullName ?? "N/A")</dd>
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.SaleDate.ToString("dd MMM yyyy HH:mm")</dd>
+        <dt class="col-sm-3">Total</dt>
+        <dd class="col-sm-9">@Model.TotalAmount.ToString("C")</dd>
+    </dl>
+
+    <form asp-action="Delete" class="d-flex gap-2">
+        <input type="hidden" asp-for="SaleId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

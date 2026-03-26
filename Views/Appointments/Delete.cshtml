@@ -1,0 +1,14 @@
+@model HairSalonDemo.Models.Appointment
+@{
+    ViewData["Title"] = "Delete Appointment";
+}
+<div class="panel p-4">
+    <h1 class="mb-3">Delete Appointment</h1>
+    <p class="section-subtitle">Are you sure you want to delete this booking?</p>
+    <dl class="row mb-4">
+        <dt class="col-sm-3">Customer</dt><dd class="col-sm-9">@Model.Customer?.FullName</dd>
+        <dt class="col-sm-3">Staff</dt><dd class="col-sm-9">@Model.Staff?.FullName</dd>
+        <dt class="col-sm-3">Service</dt><dd class="col-sm-9">@Model.Service?.Name</dd>
+    </dl>
+    <form asp-action="Delete" class="d-flex gap-2"><input type="hidden" asp-for="AppointmentId" /><button class="btn btn-danger" type="submit">Delete</button><a asp-action="Index" class="btn btn-secondary">Cancel</a></form>
+</div>

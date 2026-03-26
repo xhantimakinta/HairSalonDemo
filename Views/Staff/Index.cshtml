@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HairSalonDemo.Models.Staff>
+
+@{
+    ViewData["Title"] = "Staff";
+}
+
+<h1>Staff</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Staff</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Role)</th>
+            <th>@Html.DisplayNameFor(model => model.First().CommissionRate)</th>
+            <th>@Html.DisplayNameFor(model => model.First().IsActive)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Role</td>
+                <td>@item.CommissionRate</td>
+                <td>@item.IsActive</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.StaffId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.StaffId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.StaffId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,62 @@
+@model HairSalonDemo.Models.Sale
+@{
+    ViewData["Title"] = "Edit Sale";
+}
+
+<div class="panel p-4">
+    <h1 class="mb-1">Edit Sale</h1>
+    <p class="section-subtitle mb-4">Update the basic sale information.</p>
+
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="SaleId" />
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="CustomerId" class="form-label"></label>
+                <select asp-for="CustomerId" class="form-select" asp-items="ViewBag.CustomerId">
+                    <option value="">Walk-in customer</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="StaffId" class="form-label"></label>
+                <select asp-for="StaffId" class="form-select" asp-items="ViewBag.StaffId"></select>
+                <span asp-validation-for="StaffId" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="SaleDate" class="form-label"></label>
+                <input asp-for="SaleDate" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Subtotal" class="form-label"></label>
+                <input asp-for="Subtotal" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DiscountAmount" class="form-label"></label>
+                <input asp-for="DiscountAmount" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="TotalAmount" class="form-label"></label>
+                <input asp-for="TotalAmount" class="form-control" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="PaymentMethod" class="form-label"></label>
+                <select asp-for="PaymentMethod" class="form-select">
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="EFT">EFT</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

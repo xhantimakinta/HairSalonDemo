@@ -1,0 +1,219 @@
+:root {
+    --salon-bg: #121212;
+    --salon-card: #1E1E1E;
+    --salon-gold: #D4AF37;
+    --salon-text: #FFFFFF;
+    --salon-muted: #B0B0B0;
+    --salon-border: rgba(212, 175, 55, 0.18);
+}
+
+html {
+    font-size: 15px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background: radial-gradient(circle at top, rgba(212, 175, 55, 0.08), transparent 18%), var(--salon-bg);
+    color: var(--salon-text);
+    margin-bottom: 0;
+    overflow-x: auto;
+}
+
+a {
+    color: var(--salon-gold);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #f1cf5d;
+}
+
+.text-muted,
+.text-secondary,
+small,
+label.form-label,
+.form-text,
+.table,
+.table td,
+.table th,
+.control-label,
+.form-check-label,
+.navbar .nav-link,
+.navbar-brand {
+    color: var(--salon-text) !important;
+}
+
+.salon-navbar {
+    background: rgba(18, 18, 18, 0.96);
+    border-bottom: 1px solid var(--salon-border);
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    color: var(--salon-gold) !important;
+    letter-spacing: 0.08rem;
+}
+
+.nav-link {
+    border-radius: 999px;
+    padding: 0.55rem 0.95rem !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--salon-gold) !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--salon-text);
+    font-weight: 700;
+}
+
+.card,
+.summary-card,
+.dashboard-card,
+.quick-card,
+.panel,
+.stats-card,
+.report-card {
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.98), rgba(25, 25, 25, 0.98));
+    border: 1px solid var(--salon-border);
+    border-radius: 1rem;
+    box-shadow: 0 14px 35px rgba(0,0,0,0.28);
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255,255,255,0.03);
+    --bs-table-hover-bg: rgba(212, 175, 55, 0.08);
+    --bs-table-color: var(--salon-text);
+    border-color: rgba(255,255,255,0.08);
+}
+
+.table thead th {
+    color: var(--salon-gold);
+    border-bottom-color: rgba(212, 175, 55, 0.22);
+}
+
+.form-control,
+.form-select,
+select,
+textarea,
+input {
+    background-color: #171717 !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: var(--salon-text) !important;
+    border-radius: 0.85rem !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-check-input:focus {
+    border-color: var(--salon-gold) !important;
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--salon-muted) !important;
+}
+
+.btn-primary,
+.btn-warning,
+.btn-outline-warning:hover {
+    background: var(--salon-gold) !important;
+    border-color: var(--salon-gold) !important;
+    color: #121212 !important;
+    font-weight: 700;
+}
+
+.btn-secondary,
+.btn-outline-secondary:hover {
+    background: #2a2a2a !important;
+    border-color: #444 !important;
+    color: var(--salon-text) !important;
+}
+
+.btn-danger,
+.btn-outline-danger:hover {
+    font-weight: 700;
+}
+
+.btn,
+button,
+input[type=submit] {
+    border-radius: 0.85rem !important;
+}
+
+.summary-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--salon-gold);
+}
+
+.summary-label,
+.section-subtitle,
+.kpi-label {
+    color: var(--salon-muted);
+}
+
+.hero-banner {
+    background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(30,30,30,0.96));
+    border: 1px solid var(--salon-border);
+    border-radius: 1.25rem;
+}
+
+.badge-soft {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .45rem .8rem;
+    border-radius: 999px;
+    background: rgba(212,175,55,0.12);
+    color: var(--salon-gold);
+    font-weight: 600;
+}
+
+.low-stock {
+    color: #ff8f8f;
+}
+
+.footer {
+    background: rgba(18,18,18,0.9);
+    border-top-color: rgba(255,255,255,0.06) !important;
+}
+
+hr {
+    border-color: rgba(255,255,255,0.08);
+}
+
+dl.row dt {
+    color: var(--salon-gold);
+}
+
+.alert-warning {
+    background: rgba(212,175,55,0.14);
+    border-color: rgba(212,175,55,0.25);
+    color: var(--salon-text);
+}
+
+.alert-info {
+    background: rgba(88, 180, 255, 0.12);
+    border-color: rgba(88, 180, 255, 0.25);
+    color: var(--salon-text);
+}
+
+.form-group,
+.mb-3 {
+    margin-bottom: 1rem;
+}
